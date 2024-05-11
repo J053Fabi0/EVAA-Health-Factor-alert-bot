@@ -3,9 +3,7 @@ import { MyContext } from "../../initBot";
 import db from "../../../database/database";
 
 export default async function alertCommand(ctx: CommandContext<MyContext>) {
-  if (!ctx.from) return;
-
-  const alert = await db.alert.findOne({ user: ctx.from.id.toString() }, {});
+  const alert = await db.alert.findOne({}, {});
 
   if (alert) {
     if (alert.alertNumber === null) await ctx.reply("Alert of every change!");

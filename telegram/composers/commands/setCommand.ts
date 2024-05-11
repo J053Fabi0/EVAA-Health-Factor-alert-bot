@@ -4,16 +4,15 @@ import db, { Alert } from "../../../database/database";
 
 export default async function setCommand(ctx: CommandContext<MyContext>) {
   const text = ctx.message?.text;
-  if (!text || !ctx.from) return;
+  if (!text) return;
 
   const number = text.split(" ")[1] === "all" ? "all" : parseInt(text.split(" ")[1]);
   if (number !== "all" && isNaN(number))
     return ctx.reply("Please provide a valid alert number. Example: /set 5. Or use all to alert on every change.");
 
-  await db.alert.deleteMany({ user: ctx.from.id.toString() }, {});
+  await db.alert.deleteMany({}, {});
   await db.alert.insertOne<Alert>({
     lastAlert: null,
-    user: ctx.from.id.toString(),
     alertNumber: number === "all" ? null : number,
   });
 
