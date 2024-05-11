@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
+    "start": "pm2 start ts-node --name healthfactor -- index.ts",
+    "reload": "pm2 reload healthfactor",
+    "stop": "pm2 stop healthfactor",
+    "delete": "pm2 delete healthfactor",
+    "run": "ts-node index.ts",
     "watch": "nodemon --ignore 'session.json' --ignore 'database.db' --ignore 'price.txt' --exec ts-node index.ts"
   },
   "author": "",
