@@ -1,7 +1,15 @@
+import fs from "fs";
 import { Page } from "puppeteer";
 import findInParents from "./findInParents";
 
 export default async function getHealthScore(page: Page): Promise<number> {
+  // try to get price from price.txt. This is for testing purposes
+  try {
+    return +fs.readFileSync("./price.txt", "utf8");
+  } catch {
+    //
+  }
+
   const healthFactorText = await page.$("::-p-xpath(//span[contains(., 'Health Factor')])");
   if (!healthFactorText) throw new Error("Health Factor not found");
 

@@ -33,7 +33,7 @@ export default async function checkHealthScore(ctx?: CommandContext<MyContext>) 
 
       await bot.api.sendMessage(
         env.ADMIN_ID,
-        `The health factor is${backToNormal ? " back to normal: " : ""} ${healthScore}%`
+        `The health factor is${backToNormal ? " back to normal:" : ""} ${healthScore}%`
       );
 
       const lastAlert = backToNormal ? null : healthScore;
