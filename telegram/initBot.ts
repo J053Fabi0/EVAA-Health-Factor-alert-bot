@@ -32,6 +32,9 @@ bot.start({
     await bot.api.setMyCommands([
       { command: "check", description: "Check Health Score" },
       { command: "login", description: "Login to Evaa Finance" },
+      { command: "set", description: "Set Alert" },
+      { command: "alert", description: "Get current alert setting" },
+      { command: "delete", description: "Delete alert" },
     ]);
   },
 });
