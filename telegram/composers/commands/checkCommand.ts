@@ -2,7 +2,7 @@ import login from "../../../login";
 import { CommandContext } from "grammy";
 import { MyContext } from "../../initBot";
 import getBrowser from "../../../utils/browser";
-import findInParents from "../../../utils/findInParents";
+import getHealthScore from "../../../utils/getHealthScore";
 
 export default async function checkCommand(ctx: CommandContext<MyContext>) {
   const browser = await getBrowser();
@@ -12,16 +12,9 @@ export default async function checkCommand(ctx: CommandContext<MyContext>) {
     const isLoggedin = await login(page);
     if (!isLoggedin) return;
 
-    const healthFactorText = await page.$("::-p-xpath(//span[contains(., 'Health Factor')])");
-    if (!healthFactorText) {
-      await ctx.reply("Could not find the health factor");
-      return;
-    }
+    const healthScore = await getHealthScore(page);
 
-    const percentage = await findInParents("span:nth-child(2)", healthFactorText, 3);
-    const percentageText = await page.evaluate((el) => el.textContent, percentage);
-
-    await ctx.reply(`The health factor is ${percentageText}`);
+    await ctx.reply(`The health factor is ${healthScore}%`);
   } finally {
     await browser.close();
   }
