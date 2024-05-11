@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "pm2 start ts-node --name healthfactor -- index.ts",
-    "reload": "pm2 reload healthfactor",
+    "start": "pm2 start ts-node --name healthfactor -- index.ts && npm run logs",
+    "reload": "pm2 reload healthfactor && npm run logs",
     "stop": "pm2 stop healthfactor",
     "delete": "pm2 delete healthfactor",
     "logs": "pm2 logs healthfactor",
