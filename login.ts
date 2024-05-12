@@ -21,7 +21,7 @@ export default async function login(page: Page) {
   await page.session.restoreString(session);
   await page.reload();
 
-  await sleep(1);
+  await sleep(2);
 
   const isLoggedIn = !(await checkElement(page, "::-p-xpath(//button[contains(., 'Skip to the App')])", {
     timeout: 1000,
