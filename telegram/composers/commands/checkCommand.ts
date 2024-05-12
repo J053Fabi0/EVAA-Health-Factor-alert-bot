@@ -1,7 +1,7 @@
 import { CommandContext } from "grammy";
 import { MyContext } from "../../initBot";
-import checkHealthScore from "../../../cron/checkHealthScore";
+import checkHealthFactor from "../../../cron/checkHealthFactor";
 
 export default async function checkCommand(ctx: CommandContext<MyContext>) {
-  checkHealthScore(ctx);
+  checkHealthFactor(ctx);
 }

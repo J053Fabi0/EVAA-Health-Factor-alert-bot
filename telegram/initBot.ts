@@ -30,7 +30,7 @@ bot.start({
   onStart: async (ctx) => {
     console.log("Bot started 🚀");
     await bot.api.setMyCommands([
-      { command: "check", description: "Check Health Score" },
+      { command: "check", description: "Check Health Factor" },
       { command: "login", description: "Login to Evaa Finance" },
       { command: "set", description: "Set Alert. /set <number> or /set all" },
       { command: "alert", description: "Get current alert setting" },

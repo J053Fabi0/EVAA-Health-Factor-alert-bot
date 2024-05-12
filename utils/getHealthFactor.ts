@@ -2,7 +2,7 @@ import fs from "fs";
 import { Page } from "puppeteer";
 import findInParents from "./findInParents";
 
-export default async function getHealthScore(page: Page): Promise<number> {
+export default async function getHealthFactor(page: Page): Promise<number> {
   // try to get price from price.txt. This is for testing purposes
   try {
     return +fs.readFileSync("./price.txt", "utf8");
