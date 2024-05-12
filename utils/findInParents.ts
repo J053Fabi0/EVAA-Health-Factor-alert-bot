@@ -14,10 +14,7 @@ export default async function findInParents(
   for (let i = 0; i < maxTries; i++) {
     // go back to the previous parent, searching for all the div with role="button"
     const mas = await prevParent.$(query);
-    if (mas) {
-      console.log(`Found the element after searching in the ${i} parent`);
-      return mas;
-    }
+    if (mas) return mas;
 
     prevParent = (await prevParent.getProperty("parentElement")).asElement()!;
   }
