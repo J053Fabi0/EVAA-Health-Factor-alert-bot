@@ -6,7 +6,7 @@ puppeteer.use(StealthPlugin());
 puppeteer.use(SessionPlugin());
 
 export default async function getBrowser() {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"] });
   await browser.defaultBrowserContext().overridePermissions("https://app.evaa.finance", ["clipboard-read"]);
   return browser;
 }
