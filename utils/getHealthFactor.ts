@@ -13,10 +13,16 @@ export default async function getHealthFactor(page: Page): Promise<number> {
   const healthFactorText = await page.$("::-p-xpath(//span[contains(., 'Health Factor')])");
   if (!healthFactorText) throw new Error("Health Factor not found");
 
-  const percentage = await findInParents("span:nth-child(2)", healthFactorText, 3);
-  const percentageText = await page.evaluate((el) => el.textContent, percentage);
+  const timeout = Date.now() + 10_000;
+  while (true) {
+    const percentage = await findInParents("span:nth-child(2)", healthFactorText, 3);
+    const percentageText = await page.evaluate((el) => el.textContent, percentage);
 
-  if (!percentageText) throw new Error("Health Factor percentage not found");
+    if (!percentageText) throw new Error("Health Factor percentage not found");
 
-  return +percentageText.slice(0, -1);
+    const percentageNumber = +percentageText.slice(0, -1);
+    if (percentageNumber === 100 && timeout < Date.now()) continue;
+
+    return percentageNumber;
+  }
 }
