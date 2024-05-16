@@ -9,7 +9,7 @@ import getHealthFactor from "../utils/getHealthFactor";
 /**
  * @param ctx If ctx is provided, it will send the health factor to the user regardless of the alarm set
  */
-export default async function checkHealthFactor(ctx?: CommandContext<MyContext>) {
+export default async function checkHealthFactor(ctx?: CommandContext<MyContext>): Promise<void> {
   const alert = await db.alert.findOne({});
   if (!alert && !ctx) return;
 
@@ -21,6 +21,9 @@ export default async function checkHealthFactor(ctx?: CommandContext<MyContext>)
     if (!isLoggedin) return;
 
     const healthFactor = await getHealthFactor(page);
+
+    if (healthFactor === 100 && alert?.lastAlert && alert.lastAlert !== 99 && alert.lastAlert !== 101)
+      return checkHealthFactor(ctx);
 
     if (ctx) await ctx.reply(`The health factor is ${healthFactor}%`);
     else if (
