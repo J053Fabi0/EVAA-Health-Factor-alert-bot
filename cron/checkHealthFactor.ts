@@ -22,8 +22,10 @@ export default async function checkHealthFactor(ctx?: CommandContext<MyContext>)
 
     const healthFactor = await getHealthFactor(page);
 
-    if (healthFactor === 100 && alert?.lastAlert && alert.lastAlert !== 99 && alert.lastAlert !== 101)
+    if (healthFactor === 100 && alert?.lastAlert && alert.lastAlert !== 99 && alert.lastAlert !== 101) {
+      await bot.api.sendMessage(env.ADMIN_ID, "False 100% detected");
       return checkHealthFactor(ctx);
+    }
 
     if (ctx) await ctx.reply(`The health factor is ${healthFactor}%`);
     else if (
